@@ -16,7 +16,7 @@
                         <td>
                             <input type="checkbox" @if ($todo['completed']) checked @endif />
                         </td>
-                        <td>{{ $todo['name'] }}</td>
+                        <td class="{{ $todo['completed'] ? 'line-through' : '' }}">{{ $todo['name'] }}</td>
                         <td>{{ $todo['completed'] ? 'Done' : 'Todo' }}</td>
                     </tr>
                 @endforeach
