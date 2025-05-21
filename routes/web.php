@@ -9,6 +9,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard', [
-        "todos" => Todo::list()
+        "todos" => Todo::all()
     ]);
 });

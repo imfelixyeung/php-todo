@@ -2,21 +2,7 @@
 
 namespace App\Models;
 
-class Todo {
-  public static function list(): array {
-    return [
-      [
-          "name" => "Learn PHP",
-          "completed" => true
-      ],
-      [
-          "name" => "Learn Laravel",
-          "completed" => true
-      ],
-      [
-          "name" => "Learn MySQL",
-          "completed" => false
-      ],
-    ];
-  }
+use Illuminate\Database\Eloquent\Model;
+
+class Todo extends Model {
 }
