@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Todo;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,19 +9,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard', [
-        "todos" => [
-            [
-                "name" => "Learn PHP",
-                "completed" => true
-            ],
-            [
-                "name" => "Learn Laravel",
-                "completed" => true
-            ],
-            [
-                "name" => "Learn MySQL",
-                "completed" => false
-            ],
-        ]
+        "todos" => Todo::list()
     ]);
 });
