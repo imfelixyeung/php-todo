@@ -8,7 +8,7 @@
         </div>
         <div class="px-6 pb-6 pt-12 border-l relative">
             <a href="/dashboard?page={{ $todos->currentPage() }}" class="absolute top-3 left-6">Close</a>
-            <x-todo-details :todo="$todo" />
+            <x-todo-details :todo="$todo" page="{{ $todos->currentPage() }}" />
         </div>
     </div>
 </x-layout>

@@ -1,4 +1,4 @@
-@props(['todo'])
+@props(['todo', 'page' => 0])
 
 @if ($todo == null)
     <section>
@@ -21,12 +21,14 @@
 
         <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}/update">
             @csrf
+            <x-form-page page="{{ $page }}" />
             <input name="todoId" value="{{ $todo['id'] }}" hidden />
             <input name="completed" type="checkbox" @if (!$todo['completed']) checked @endif hidden />
             <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Mark as done</button>
         </form>
         <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}/delete">
             @csrf
+            <x-form-page page="{{ $page }}" />
             <input name="todoId" value="{{ $todo['id'] }}" hidden />
             <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Delete</button>
         </form>

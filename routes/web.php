@@ -16,6 +16,7 @@ Route::get('/dashboard', function () {
 });
 
 Route::post('/dashboard/todos/create', function () {
+    $page = request('page');
 
     $todo = Todo::create([
         "name" => request('name'),
@@ -23,7 +24,7 @@ Route::post('/dashboard/todos/create', function () {
     ]);
     $todoId = $todo['id'];
 
-    return redirect("/dashboard/todos/$todoId");
+    return redirect("/dashboard/todos/$todoId?page=$page");
 });
 
 Route::get('/dashboard/todos/{id}', function ($id) {
@@ -39,16 +40,18 @@ Route::get('/dashboard/todos/{id}', function ($id) {
 });
 
 Route::post('/dashboard/todos/{id}/update', function ($id) {
+    $page = request('page');
     $completed = request("completed") == "on" ? true : false;
     $todo = Todo::find($id);
     $todo->update(["completed" => $completed]);
 
-    return redirect("/dashboard/todos/$id");
+    return redirect("/dashboard/todos/$id?page=$page");
 });
 
 Route::post('/dashboard/todos/{id}/delete', function ($id) {
+    $page = request('page');
     $todo = Todo::find($id);
     $todo->delete();
 
-    return redirect("/dashboard");
+    return redirect("/dashboard?page=$page");
 });
