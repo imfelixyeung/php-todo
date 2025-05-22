@@ -38,10 +38,17 @@ Route::get('/dashboard/todos/{id}', function ($id) {
     ], $statusCode);
 });
 
-Route::put('/dashboard/todos/{id}', function ($id) {
-    dd(request()->all());
+Route::post('/dashboard/todos/{id}/update', function ($id) {
+    $completed = request("completed") == "on" ? true : false;
+    $todo = Todo::find($id);
+    $todo->update(["completed" => $completed]);
+
+    return redirect("/dashboard/todos/$id");
 });
 
-Route::delete('/dashboard/todos/{id}', function ($id) {
-    dd(request()->all());
+Route::post('/dashboard/todos/{id}/delete', function ($id) {
+    $todo = Todo::find($id);
+    $todo->delete();
+
+    return redirect("/dashboard");
 });
