@@ -1,4 +1,4 @@
-@props(['todos' => []])
+@props(['todos' => [], 'selectedTodo' => null])
 
 <?php
 
@@ -6,6 +6,8 @@ function formatDate(\DateTime $date)
 {
     return $date->format('d M Y');
 }
+
+$selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
 
 ?>
 
@@ -27,12 +29,13 @@ function formatDate(\DateTime $date)
             </thead>
             <tbody>
                 @foreach ($todos as $todo)
-                    <tr>
+                    <tr class="{{ $selectedTodoId == $todo['id'] ? 'bg-gray-200' : '' }}">
                         <td>
                             <input type="checkbox" @if ($todo['completed']) checked @endif />
                         </td>
                         <td class="{{ $todo['completed'] ? 'line-through' : '' }}">
-                            <a href="/dashboard/todos/{{ $todo['id'] }}" class="hover:underline">{{ $todo['name'] }}</a>
+                            <a href="/dashboard/todos/{{ $todo['id'] }}?page={{ $todos->currentPage() }}"
+                                class="hover:underline">{{ $todo['name'] }}</a>
                         </td>
                         <td>{{ $todo['completed'] ? 'Done' : 'Todo' }}</td>
                         <td>{{ formatDate($todo['created_at']) }}</td>
