@@ -32,7 +32,7 @@ function formatDate(\DateTime $date)
                             <input type="checkbox" @if ($todo['completed']) checked @endif />
                         </td>
                         <td class="{{ $todo['completed'] ? 'line-through' : '' }}">
-                            <a href="/dashboard/todos/{{ $todo['id'] }}">{{ $todo['name'] }}</a>
+                            <a href="/dashboard/todos/{{ $todo['id'] }}" class="hover:underline">{{ $todo['name'] }}</a>
                         </td>
                         <td>{{ $todo['completed'] ? 'Done' : 'Todo' }}</td>
                         <td>{{ formatDate($todo['created_at']) }}</td>
@@ -42,4 +42,8 @@ function formatDate(\DateTime $date)
             </tbody>
         </table>
     @endif
+
+    <div class="pagination mt-4">
+        {{ $todos->links() }}
+    </div>
 </div>
