@@ -6,8 +6,8 @@
             <x-create-todo-form />
             <x-todos-table :todos="$todos" />
         </div>
-        <div class="p-6 border-l relative">
-            <a href="/dashboard" class="absolute top-6 right-6">Close</a>
+        <div class="px-6 pb-6 pt-12 border-l relative">
+            <a href="/dashboard" class="absolute top-3 left-6">Close</a>
             <x-todo-details :todo="$todo" />
         </div>
     </div>
