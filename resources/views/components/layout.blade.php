@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <x-header />
-        <main class="p-6">
+        <main>
             {{ $slot }}
         </main>
     </div>

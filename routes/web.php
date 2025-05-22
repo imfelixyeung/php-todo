@@ -14,3 +14,13 @@ Route::get('/dashboard', function () {
         "todos" => $todos,
     ]);
 });
+
+Route::get('/dashboard/todos/{id}', function ($id) {
+    $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->get();
+    $todo = Todo::find($id);
+
+    return view('dashboard-todo', [
+        "todo" => $todo,
+        "todos" => $todos,
+    ]);
+});
