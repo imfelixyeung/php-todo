@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="grid grid-cols-[auto_20rem]">
+    <div class="grid grid-cols-[auto_20rem] h-full">
         <div class="p-6">
             <h1 class="text-3xl font-bold">Todos</h1>
 
