@@ -37,7 +37,9 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                             <a href="/dashboard/todos/{{ $todo['id'] }}?page={{ $todos->currentPage() }}"
                                 class="hover:underline">{{ $todo['name'] }}</a>
                         </td>
-                        <td>{{ $todo['completed'] ? 'Done' : 'Todo' }}</td>
+                        <td>
+                            <x-todo-status-label completed="{{ $todo['completed'] }}" />
+                        </td>
                         <td>{{ formatDate($todo['created_at']) }}</td>
                         <td>{{ formatDate($todo['updated_at']) }}</td>
                     </tr>

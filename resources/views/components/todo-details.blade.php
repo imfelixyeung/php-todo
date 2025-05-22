@@ -8,13 +8,7 @@
 @else
     <section>
 
-        <div>
-            @if ($todo['completed'])
-                <span class="text-green-600">Done</span>
-            @else
-                <span class="text-amber-600">Todo</span>
-            @endif
-        </div>
+        <x-todo-status-label completed="{{ $todo['completed'] }}" />
 
         <h2 class="text-xl font-medium">{{ $todo['name'] }}</h2>
         <p class="text-sm text-gray-600">{{ $todo['created_at'] }}</p>
