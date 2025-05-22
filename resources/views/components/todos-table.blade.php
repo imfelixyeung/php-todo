@@ -1,5 +1,14 @@
 @props(['todos' => []])
 
+<?php
+
+function formatDate(\DateTime $date)
+{
+    return $date->format('d M Y');
+}
+
+?>
+
 <div class="border rounded-lg p-2 mt-6">
     @if (count($todos) == 0)
         <div>
@@ -24,12 +33,11 @@
                         </td>
                         <td class="{{ $todo['completed'] ? 'line-through' : '' }}">{{ $todo['name'] }}</td>
                         <td>{{ $todo['completed'] ? 'Done' : 'Todo' }}</td>
-                        <td>{{ $todo['created_at']->format('d M Y') }}</td>
-                        <td>{{ $todo['updated_at']->format('d M Y') }}</td>
+                        <td>{{ formatDate($todo['created_at']) }}</td>
+                        <td>{{ formatDate($todo['updated_at']) }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-
     @endif
 </div>
