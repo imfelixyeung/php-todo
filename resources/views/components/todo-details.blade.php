@@ -6,10 +6,14 @@
     <p class="text-sm text-gray-600">{{ $todo['created_at'] }}</p>
 
     <form action="">
-        <a href="" class="px-3 py-1 border rounded-sm inline-block">Mark as done</a>
+        <input name="todoId" value="{{ $todo['id'] }}" hidden />
+        <input name="action" value="mark:done" hidden />
+        <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Mark as done</button>
     </form>
     <form action="">
-        <a href="" class="px-3 py-1 border rounded-sm inline-block">Delete</a>
+        <input name="todoId" value="{{ $todo['id'] }}" hidden />
+        <input name="action" value="delete" hidden />
+        <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Delete</button>
     </form>
 
 </section>
