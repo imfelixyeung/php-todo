@@ -15,6 +15,17 @@ Route::get('/dashboard', function () {
     ]);
 });
 
+Route::post('/dashboard/todos/create', function () {
+
+    $todo = Todo::create([
+        "name" => request('name'),
+        "completed" => false,
+    ]);
+    $todoId = $todo['id'];
+
+    return redirect("/dashboard/todos/$todoId");
+});
+
 Route::get('/dashboard/todos/{id}', function ($id) {
     $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate(10);
     $todo = Todo::find($id);
@@ -25,4 +36,12 @@ Route::get('/dashboard/todos/{id}', function ($id) {
         "todo" => $todo,
         "todos" => $todos,
     ], $statusCode);
+});
+
+Route::put('/dashboard/todos/{id}', function ($id) {
+    dd(request()->all());
+});
+
+Route::delete('/dashboard/todos/{id}', function ($id) {
+    dd(request()->all());
 });
