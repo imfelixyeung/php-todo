@@ -8,7 +8,9 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+    $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->get();
+
     return view('dashboard', [
-        "todos" => Todo::all()
+        "todos" => $todos,
     ]);
 });
