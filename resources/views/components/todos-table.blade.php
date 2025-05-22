@@ -12,6 +12,8 @@
                     <th></th>
                     <th class="text-left">Name</th>
                     <th class="text-left">Status</th>
+                    <th class="text-left">Created</th>
+                    <th class="text-left">Updated</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +24,8 @@
                         </td>
                         <td class="{{ $todo['completed'] ? 'line-through' : '' }}">{{ $todo['name'] }}</td>
                         <td>{{ $todo['completed'] ? 'Done' : 'Todo' }}</td>
+                        <td>{{ $todo['created_at']->format('d M Y') }}</td>
+                        <td>{{ $todo['updated_at']->format('d M Y') }}</td>
                     </tr>
                 @endforeach
             </tbody>
