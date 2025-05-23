@@ -8,7 +8,7 @@
         <div class="p-6 md:col-start-1 md:col-span-1 md:row-start-1">
             <h1 class="text-3xl font-bold">Todos</h1>
 
-            @can('create-todo')
+            @can('create', App\Models\Todo::class)
                 <x-create-todo-form />
             @endcan
             <x-todos-table :todos="$todos" :selectedTodo="$todo" page="{{ $todos->currentPage() }}" />

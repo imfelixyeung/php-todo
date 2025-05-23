@@ -16,7 +16,7 @@
         </div>
 
         <div class="flex gap-2 flex-wrap">
-            @can('update-todo', $todo)
+            @can('update', $todo)
                 <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
                     @csrf
                     @method('PATCH')
@@ -26,7 +26,7 @@
                             completed="{{ !$todo['completed'] }}" /></x-button>
                 </form>
             @endcan
-            @can('destroy-todo', $todo)
+            @can('delete', $todo)
                 <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
                     @csrf
                     @method('DELETE')

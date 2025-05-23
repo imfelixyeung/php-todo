@@ -24,15 +24,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useTailwind();
-
-        Gate::define('create-todo', function (User $user) {
-            return !!$user;
-        });
-        Gate::define('update-todo', function (User $user, Todo $todo) {
-            return $todo->user->is($user);
-        });
-        Gate::define('destroy-todo', function (User $user, Todo $todo) {
-            return $todo->user->is($user);
-        });
     }
 }
