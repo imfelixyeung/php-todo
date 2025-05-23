@@ -2,11 +2,6 @@
 
 <?php
 
-function formatDate(\DateTime $date)
-{
-    return $date->format('d M Y');
-}
-
 $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
 
 ?>
@@ -55,8 +50,8 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                             <x-todo-status-label completed="{{ $todo['completed'] }}" />
                         </td>
                         <td>{{ $todo->user->name }}</td>
-                        <td>{{ formatDate($todo['created_at']) }}</td>
-                        <td>{{ formatDate($todo['updated_at']) }}</td>
+                        <td>{{ App\Utilities\FormatUtilities::formatDate($todo['created_at']) }}</td>
+                        <td>{{ App\Utilities\FormatUtilities::formatDate($todo['updated_at']) }}</td>
                     </tr>
                 @endforeach
             </tbody>

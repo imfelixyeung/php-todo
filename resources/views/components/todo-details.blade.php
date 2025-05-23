@@ -1,5 +1,12 @@
 @props(['todo', 'page' => 0])
 
+@php
+    use App\Utilities\FormatUtilities;
+
+    $createdAt = App\Utilities\FormatUtilities::formatLongDate($todo['created_at']);
+    $updatedAt = App\Utilities\FormatUtilities::formatLongDate($todo['updated_at']);
+@endphp
+
 @if ($todo == null)
     <section>
 
@@ -12,7 +19,15 @@
             <x-todo-status-label completed="{{ $todo['completed'] }}" />
 
             <h2 class="text-xl font-medium">{{ $todo['name'] }}</h2>
-            <p class="text-sm text-gray-600">{{ $todo['created_at'] }}</p>
+            <p class="text-sm text-gray-600">
+                By {{ $todo->user->name }}
+                <br />
+                Created {{ $createdAt }}
+                @if ($updatedAt !== $createdAt)
+                    <br />
+                    Updated {{ $updatedAt }}
+                @endif
+            </p>
         </div>
 
         <div class="flex gap-2 flex-wrap">
