@@ -4,13 +4,14 @@ use App\Models\Todo;
 use Illuminate\Support\Facades\Route;
 
 $pageSchema = ['required', 'integer', 'min:0'];
+$pageSize = 20;
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/dashboard', function () {
-    $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate(10);
+Route::get('/dashboard', function () use ($pageSize) {
+    $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate($pageSize);
 
     return view('dashboard', [
         "todos" => $todos,
@@ -33,8 +34,8 @@ Route::post('/dashboard/todos/create', function () use ($pageSchema) {
     return redirect("/dashboard/todos/$todoId?page=$page");
 });
 
-Route::get('/dashboard/todos/{id}', function ($id) {
-    $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate(10);
+Route::get('/dashboard/todos/{id}', function ($id) use ($pageSize) {
+    $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate($pageSize);
     // prefer find() over findOrFail() in favor for non global custom 404
     $todo = Todo::find($id);
 
