@@ -5,12 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'home');
 
-Route::get('/dashboard', [TodoController::class, 'index']);
-
-Route::post('/dashboard/todos', [TodoController::class, 'create']);
-
-Route::get('/dashboard/todos/{id}', [TodoController::class, 'show']);
-
-Route::patch('/dashboard/todos/{todo}', [TodoController::class, 'update']);
-
-Route::delete('/dashboard/todos/{todo}', [TodoController::class, 'destroy']);
+Route::controller(TodoController::class)->group(function () {
+    Route::get('/dashboard', 'index');
+    Route::post('/dashboard/todos', 'create');
+    Route::get('/dashboard/todos/{id}', 'show');
+    Route::patch('/dashboard/todos/{todo}', 'update');
+    Route::delete('/dashboard/todos/{todo}', 'destroy');
+});
