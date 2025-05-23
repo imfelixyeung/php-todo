@@ -4,7 +4,7 @@
             <h1 class="text-3xl font-bold">Todos</h1>
 
             <x-create-todo-form />
-            <x-todos-table :todos="$todos" :selectedTodo="$todo" />
+            <x-todos-table :todos="$todos" :selectedTodo="$todo" page="{{ $todos->currentPage() }}" />
         </div>
         <div class="px-6 pb-6 pt-12 border-l relative grid grid-rows-[1fr]">
             <a href="/dashboard?page={{ $todos->currentPage() }}" class="absolute top-3 left-6">Close</a>

@@ -1,4 +1,4 @@
-@props(['todos' => [], 'selectedTodo' => null])
+@props(['todos' => [], 'selectedTodo' => null, 'page' => 0])
 
 <?php
 
@@ -31,7 +31,16 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                 @foreach ($todos as $todo)
                     <tr class="relative {{ $selectedTodoId == $todo['id'] ? 'bg-gray-200' : 'hover:bg-gray-300' }}">
                         <td>
-                            <input type="checkbox" @if ($todo['completed']) checked @endif />
+                            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}/update">
+                                @csrf
+                                <x-form-page page="{{ $page }}" />
+                                <input type="checkbox" @if ($todo['completed']) checked @endif
+                                    onchange="this.form.submit(); this.disabled = true;" />
+                                <input name="completed" type="checkbox" @if (!$todo['completed']) checked @endif
+                                    hidden />
+                                <button type="submit" class="sr-only">Mark as
+                                    <x-todo-status-label completed="{{ !$todo['completed'] }}" /></button>
+                            </form>
                         </td>
                         <td class="{{ $todo['completed'] ? 'line-through' : '' }}">
                             <a href="/dashboard/todos/{{ $todo['id'] }}?page={{ $todos->currentPage() }}"
