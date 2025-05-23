@@ -9,7 +9,11 @@
                 <a href="/register" class="block">Register</a>
             @endguest
             @auth
-                Hello, User!
+                <div>Hello, {{ auth()->user()->name }}!</div>
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button class="cursor-pointer">Log out</button>
+                </form>
                 {{-- todo: implement user's name --}}
             @endauth
         </div>

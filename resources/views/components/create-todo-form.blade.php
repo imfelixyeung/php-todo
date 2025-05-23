@@ -11,7 +11,5 @@
         <button type="submit" class="px-2 py-1 border-l cursor-pointer">Create</button>
     </div>
 
-    @error('name')
-        <div class="text-red-600">{{ $message }}</div>
-    @enderror
+    <x-form-error name="name" />
 </form>
