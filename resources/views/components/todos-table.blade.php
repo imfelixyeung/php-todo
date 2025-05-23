@@ -37,7 +37,10 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                                 @method('PATCH')
                                 <x-form-page page="{{ $page }}" />
                                 <input type="checkbox" @if ($todo['completed']) checked @endif
-                                    onchange="this.form.submit(); this.disabled = true;" />
+                                    onchange="this.form.submit(); this.disabled = true;"
+                                    @cannot('update', $todo)
+                                        disabled
+                                    @endcannot />
                                 <input name="completed" type="checkbox" @if (!$todo['completed']) checked @endif
                                     hidden />
                                 <button type="submit" class="sr-only">Mark as
