@@ -14,22 +14,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Felix',
             'email' => 'me@felixyeung.com',
+            'password' => 'example:password:123'
         ]);
 
         Todo::create([
             "name" => "Learn Laravel",
             "completed" => true,
+            'user_id' => $user->id,
         ]);
         Todo::create([
             "name" => "Learn PHP",
             "completed" => true,
+            'user_id' => $user->id,
         ]);
         Todo::create([
             "name" => "Learn MySQL",
             "completed" => false,
+            'user_id' => $user->id,
         ]);
 
         Todo::factory(50)->create();

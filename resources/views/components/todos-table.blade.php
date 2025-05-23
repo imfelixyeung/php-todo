@@ -23,6 +23,7 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                     <th class="w-8"></th>
                     <th class="text-left">Name</th>
                     <th class="text-left">Status</th>
+                    <th class="text-left">Author</th>
                     <th class="text-left">Created</th>
                     <th class="text-left">Updated</th>
                 </tr>
@@ -50,6 +51,7 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                         <td>
                             <x-todo-status-label completed="{{ $todo['completed'] }}" />
                         </td>
+                        <td>{{ $todo->user->name }}</td>
                         <td>{{ formatDate($todo['created_at']) }}</td>
                         <td>{{ formatDate($todo['updated_at']) }}</td>
                     </tr>

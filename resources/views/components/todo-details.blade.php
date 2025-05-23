@@ -16,20 +16,24 @@
         </div>
 
         <div class="flex gap-2 flex-wrap">
-            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
-                @csrf
-                @method('PATCH')
-                <x-form-page page="{{ $page }}" />
-                <input name="completed" type="checkbox" @if (!$todo['completed']) checked @endif hidden />
-                <x-button type="submit">Mark as <x-todo-status-label
-                        completed="{{ !$todo['completed'] }}" /></x-button>
-            </form>
-            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
-                @csrf
-                @method('DELETE')
-                <x-form-page page="{{ $page }}" />
-                <x-button type="submit">Delete</x-button>
-            </form>
+            @can('update-todo', $todo)
+                <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
+                    @csrf
+                    @method('PATCH')
+                    <x-form-page page="{{ $page }}" />
+                    <input name="completed" type="checkbox" @if (!$todo['completed']) checked @endif hidden />
+                    <x-button type="submit">Mark as <x-todo-status-label
+                            completed="{{ !$todo['completed'] }}" /></x-button>
+                </form>
+            @endcan
+            @can('destroy-todo', $todo)
+                <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
+                    @csrf
+                    @method('DELETE')
+                    <x-form-page page="{{ $page }}" />
+                    <x-button type="submit">Delete</x-button>
+                </form>
+            @endcan
         </div>
 
     </section>

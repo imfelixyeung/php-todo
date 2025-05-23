@@ -33,6 +33,7 @@ class TodoController extends Controller
         $todo = Todo::create([
             "name" => $values['name'],
             "completed" => false,
+            "user_id" => request()->user()->id,
         ]);
         $todoId = $todo['id'];
 

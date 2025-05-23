@@ -9,10 +9,10 @@ Route::view('/', 'home');
 
 Route::controller(TodoController::class)->group(function () {
     Route::get('/dashboard', 'index');
-    Route::post('/dashboard/todos', 'create');
+    Route::post('/dashboard/todos', 'create')->middleware(["auth"])->can("create-todo", 'todo');
     Route::get('/dashboard/todos/{id}', 'show');
-    Route::patch('/dashboard/todos/{todo}', 'update');
-    Route::delete('/dashboard/todos/{todo}', 'destroy');
+    Route::patch('/dashboard/todos/{todo}', 'update')->middleware(["auth"])->can("update-todo", 'todo');
+    Route::delete('/dashboard/todos/{todo}', 'destroy')->middleware(['auth'])->can("delete-todo", 'todo');;
 });
 
 Route::controller(RegisteredUserController::class)->group(function () {
@@ -21,7 +21,7 @@ Route::controller(RegisteredUserController::class)->group(function () {
 });
 
 Route::controller(SessionController::class)->group(function () {
-    Route::get('/login', 'create');
+    Route::get('/login', 'create')->name("login");
     Route::post('/login', 'store');
     Route::post('/logout', 'destroy');
 });
