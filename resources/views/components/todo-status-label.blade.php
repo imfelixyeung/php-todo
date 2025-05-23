@@ -2,8 +2,8 @@
 
 <span>
     @if ($completed)
-        <span class="text-green-600">Done</span>
+        <span class="text-todo-complete">Done</span>
     @else
-        <span class="text-amber-600">Todo</span>
+        <span class="text-todo-pending">Todo</span>
     @endif
 </span>
