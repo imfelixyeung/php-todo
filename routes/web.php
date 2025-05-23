@@ -35,6 +35,7 @@ Route::post('/dashboard/todos/create', function () use ($pageSchema) {
 
 Route::get('/dashboard/todos/{id}', function ($id) {
     $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate(10);
+    // prefer find() over findOrFail() in favor for non global custom 404
     $todo = Todo::find($id);
 
     $statusCode = $todo == null ? 404 : 200;
@@ -55,7 +56,7 @@ Route::post('/dashboard/todos/{id}/update', function ($id) use ($pageSchema) {
     $completed = array_key_exists("completed", $values) && $values['completed'] == "on"
         ? true
         : false;
-    $todo = Todo::find($id);
+    $todo = Todo::findOrFail($id);
     $todo->update(["completed" => $completed]);
 
     return redirect("/dashboard/todos/$id?page=$page");
@@ -67,7 +68,7 @@ Route::post('/dashboard/todos/{id}/delete', function ($id) use ($pageSchema) {
     ]);
     $page = $values['page'];
 
-    $todo = Todo::find($id);
+    $todo = Todo::findOrFail($id);
     $todo->delete();
 
     return redirect("/dashboard?page=$page");
