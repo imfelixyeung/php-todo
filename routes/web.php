@@ -46,7 +46,7 @@ Route::get('/dashboard/todos/{id}', function ($id) {
     ], $statusCode);
 });
 
-Route::patch('/dashboard/todos/{id}', function ($id) use ($pageSchema) {
+Route::patch('/dashboard/todos/{todo}', function (Todo $todo) use ($pageSchema) {
     $values = request()->validate([
         "completed" => ['nullable'],
         "page" => $pageSchema,
@@ -56,19 +56,17 @@ Route::patch('/dashboard/todos/{id}', function ($id) use ($pageSchema) {
     $completed = array_key_exists("completed", $values) && $values['completed'] == "on"
         ? true
         : false;
-    $todo = Todo::findOrFail($id);
     $todo->update(["completed" => $completed]);
 
-    return redirect("/dashboard/todos/$id?page=$page");
+    return redirect("/dashboard/todos/$todo->id?page=$page");
 });
 
-Route::delete('/dashboard/todos/{id}', function ($id) use ($pageSchema) {
+Route::delete('/dashboard/todos/{todo}', function (Todo $todo) use ($pageSchema) {
     $values = request()->validate([
         "page" => $pageSchema,
     ]);
     $page = $values['page'];
 
-    $todo = Todo::findOrFail($id);
     $todo->delete();
 
     return redirect("/dashboard?page=$page");
