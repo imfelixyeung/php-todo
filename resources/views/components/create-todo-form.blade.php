@@ -1,6 +1,6 @@
 @props(['page' => 0])
 
-<form method="POST" action="/dashboard/todos/create">
+<form method="POST" action="/dashboard/todos">
     @csrf
     <x-form-page page="{{ $page }}" />
 

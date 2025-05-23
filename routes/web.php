@@ -7,7 +7,7 @@ Route::view('/', 'home');
 
 Route::get('/dashboard', [TodoController::class, 'index']);
 
-Route::post('/dashboard/todos/create', [TodoController::class, 'create']);
+Route::post('/dashboard/todos', [TodoController::class, 'create']);
 
 Route::get('/dashboard/todos/{id}', [TodoController::class, 'show']);
 
