@@ -1,74 +1,18 @@
 <?php
 
-use App\Models\Todo;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
-
-$pageSchema = ['required', 'integer', 'min:0'];
-$pageSize = 20;
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/dashboard', function () use ($pageSize) {
-    $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate($pageSize);
+Route::get('/dashboard', [TodoController::class, 'index']);
 
-    return view('dashboard', [
-        "todos" => $todos,
-    ]);
-});
+Route::post('/dashboard/todos/create', [TodoController::class, 'create']);
 
-Route::post('/dashboard/todos/create', function () use ($pageSchema) {
-    $values = request()->validate([
-        'name' => ['required', 'min:1'],
-        "page" => $pageSchema,
-    ]);
-    $page = $values['page'];
+Route::get('/dashboard/todos/{id}', [TodoController::class, 'show']);
 
-    $todo = Todo::create([
-        "name" => $values['name'],
-        "completed" => false,
-    ]);
-    $todoId = $todo['id'];
+Route::patch('/dashboard/todos/{todo}', [TodoController::class, 'update']);
 
-    return redirect("/dashboard/todos/$todoId?page=$page");
-});
-
-Route::get('/dashboard/todos/{id}', function ($id) use ($pageSize) {
-    $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate($pageSize);
-    // prefer find() over findOrFail() in favor for non global custom 404
-    $todo = Todo::find($id);
-
-    $statusCode = $todo == null ? 404 : 200;
-
-    return response()->view('dashboard-todo', [
-        "todo" => $todo,
-        "todos" => $todos,
-    ], $statusCode);
-});
-
-Route::patch('/dashboard/todos/{todo}', function (Todo $todo) use ($pageSchema) {
-    $values = request()->validate([
-        "completed" => ['nullable'],
-        "page" => $pageSchema,
-    ]);
-    $page = $values['page'];
-
-    $completed = array_key_exists("completed", $values) && $values['completed'] == "on"
-        ? true
-        : false;
-    $todo->update(["completed" => $completed]);
-
-    return redirect("/dashboard/todos/$todo->id?page=$page");
-});
-
-Route::delete('/dashboard/todos/{todo}', function (Todo $todo) use ($pageSchema) {
-    $values = request()->validate([
-        "page" => $pageSchema,
-    ]);
-    $page = $values['page'];
-
-    $todo->delete();
-
-    return redirect("/dashboard?page=$page");
-});
+Route::delete('/dashboard/todos/{todo}', [TodoController::class, 'destroy']);
