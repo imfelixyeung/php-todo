@@ -31,8 +31,9 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                 @foreach ($todos as $todo)
                     <tr class="relative {{ $selectedTodoId == $todo['id'] ? 'bg-gray-200' : 'hover:bg-gray-300' }}">
                         <td>
-                            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}/update">
+                            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
                                 @csrf
+                                @method('PATCH')
                                 <x-form-page page="{{ $page }}" />
                                 <input type="checkbox" @if ($todo['completed']) checked @endif
                                     onchange="this.form.submit(); this.disabled = true;" />

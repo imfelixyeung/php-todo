@@ -16,15 +16,17 @@
         </div>
 
         <div class="flex gap-2 flex-wrap">
-            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}/update">
+            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
                 @csrf
+                @method('PATCH')
                 <x-form-page page="{{ $page }}" />
                 <input name="completed" type="checkbox" @if (!$todo['completed']) checked @endif hidden />
                 <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Mark as <x-todo-status-label
                         completed="{{ !$todo['completed'] }}" /></button>
             </form>
-            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}/delete">
+            <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
                 @csrf
+                @method('DELETE')
                 <x-form-page page="{{ $page }}" />
                 <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Delete</button>
             </form>

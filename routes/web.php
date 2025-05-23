@@ -46,7 +46,7 @@ Route::get('/dashboard/todos/{id}', function ($id) {
     ], $statusCode);
 });
 
-Route::post('/dashboard/todos/{id}/update', function ($id) use ($pageSchema) {
+Route::patch('/dashboard/todos/{id}', function ($id) use ($pageSchema) {
     $values = request()->validate([
         "completed" => ['nullable'],
         "page" => $pageSchema,
@@ -62,7 +62,7 @@ Route::post('/dashboard/todos/{id}/update', function ($id) use ($pageSchema) {
     return redirect("/dashboard/todos/$id?page=$page");
 });
 
-Route::post('/dashboard/todos/{id}/delete', function ($id) use ($pageSchema) {
+Route::delete('/dashboard/todos/{id}', function ($id) use ($pageSchema) {
     $values = request()->validate([
         "page" => $pageSchema,
     ]);
