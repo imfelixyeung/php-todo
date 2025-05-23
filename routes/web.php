@@ -3,6 +3,8 @@
 use App\Models\Todo;
 use Illuminate\Support\Facades\Route;
 
+$pageSchema = ['required', 'integer', 'min:0'];
+
 Route::get('/', function () {
     return view('home');
 });
@@ -15,11 +17,15 @@ Route::get('/dashboard', function () {
     ]);
 });
 
-Route::post('/dashboard/todos/create', function () {
-    $page = request('page');
+Route::post('/dashboard/todos/create', function () use ($pageSchema) {
+    $values = request()->validate([
+        'name' => ['required', 'min:1'],
+        "page" => $pageSchema,
+    ]);
+    $page = $values['page'];
 
     $todo = Todo::create([
-        "name" => request('name'),
+        "name" => $values['name'],
         "completed" => false,
     ]);
     $todoId = $todo['id'];
@@ -39,17 +45,28 @@ Route::get('/dashboard/todos/{id}', function ($id) {
     ], $statusCode);
 });
 
-Route::post('/dashboard/todos/{id}/update', function ($id) {
-    $page = request('page');
-    $completed = request("completed") == "on" ? true : false;
+Route::post('/dashboard/todos/{id}/update', function ($id) use ($pageSchema) {
+    $values = request()->validate([
+        "completed" => ['nullable'],
+        "page" => $pageSchema,
+    ]);
+    $page = $values['page'];
+
+    $completed = array_key_exists("completed", $values) && $values['completed'] == "on"
+        ? true
+        : false;
     $todo = Todo::find($id);
     $todo->update(["completed" => $completed]);
 
     return redirect("/dashboard/todos/$id?page=$page");
 });
 
-Route::post('/dashboard/todos/{id}/delete', function ($id) {
-    $page = request('page');
+Route::post('/dashboard/todos/{id}/delete', function ($id) use ($pageSchema) {
+    $values = request()->validate([
+        "page" => $pageSchema,
+    ]);
+    $page = $values['page'];
+
     $todo = Todo::find($id);
     $todo->delete();
 

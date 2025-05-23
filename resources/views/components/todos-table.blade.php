@@ -20,7 +20,7 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
         <table class="w-full">
             <thead>
                 <tr>
-                    <th></th>
+                    <th class="w-8"></th>
                     <th class="text-left">Name</th>
                     <th class="text-left">Status</th>
                     <th class="text-left">Created</th>
@@ -29,13 +29,13 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
             </thead>
             <tbody>
                 @foreach ($todos as $todo)
-                    <tr class="{{ $selectedTodoId == $todo['id'] ? 'bg-gray-200' : '' }}">
+                    <tr class="relative {{ $selectedTodoId == $todo['id'] ? 'bg-gray-200' : 'hover:bg-gray-300' }}">
                         <td>
                             <input type="checkbox" @if ($todo['completed']) checked @endif />
                         </td>
                         <td class="{{ $todo['completed'] ? 'line-through' : '' }}">
                             <a href="/dashboard/todos/{{ $todo['id'] }}?page={{ $todos->currentPage() }}"
-                                class="hover:underline">{{ $todo['name'] }}</a>
+                                class="hover:underline after:absolute after:inset-0 after:left-8 after:z-10">{{ $todo['name'] }}</a>
                         </td>
                         <td>
                             <x-todo-status-label completed="{{ $todo['completed'] }}" />
