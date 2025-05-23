@@ -19,7 +19,6 @@
             <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}/update">
                 @csrf
                 <x-form-page page="{{ $page }}" />
-                <input name="todoId" value="{{ $todo['id'] }}" hidden />
                 <input name="completed" type="checkbox" @if (!$todo['completed']) checked @endif hidden />
                 <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Mark as <x-todo-status-label
                         completed="{{ !$todo['completed'] }}" /></button>
@@ -27,7 +26,6 @@
             <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}/delete">
                 @csrf
                 <x-form-page page="{{ $page }}" />
-                <input name="todoId" value="{{ $todo['id'] }}" hidden />
                 <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Delete</button>
             </form>
         </div>
