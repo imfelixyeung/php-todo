@@ -48,7 +48,7 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                             </form>
                         </td>
                         <td class="{{ $todo['completed'] ? 'line-through' : '' }}">
-                            <a href="/dashboard/todos/{{ $todo['id'] }}?page={{ $todos->currentPage() }}"
+                            <a @if ($todo->is($selectedTodo)) href="/dashboard?page={{ $todos->currentPage() }}" @else href="/dashboard/todos/{{ $todo['id'] }}?page={{ $todos->currentPage() }}" @endif
                                 class="hover:underline after:absolute after:inset-0 after:left-8 after:z-10">{{ $todo['name'] }}</a>
                         </td>
                         <td>
