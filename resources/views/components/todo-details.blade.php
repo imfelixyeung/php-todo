@@ -21,14 +21,14 @@
                 @method('PATCH')
                 <x-form-page page="{{ $page }}" />
                 <input name="completed" type="checkbox" @if (!$todo['completed']) checked @endif hidden />
-                <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Mark as <x-todo-status-label
-                        completed="{{ !$todo['completed'] }}" /></button>
+                <x-button type="submit">Mark as <x-todo-status-label
+                        completed="{{ !$todo['completed'] }}" /></x-button>
             </form>
             <form method="POST" action="/dashboard/todos/{{ $todo['id'] }}">
                 @csrf
                 @method('DELETE')
                 <x-form-page page="{{ $page }}" />
-                <button type="submit" class="px-3 py-1 border rounded-sm inline-block">Delete</button>
+                <x-button type="submit">Delete</x-button>
             </form>
         </div>
 

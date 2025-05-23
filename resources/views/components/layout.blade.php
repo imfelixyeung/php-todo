@@ -12,7 +12,7 @@
 <body>
     <div id="app" class="min-h-screen grid grid-rows-[auto_1fr]">
         <x-header />
-        <main>
+        <main {{ $attributes }}>
             {{ $slot }}
         </main>
     </div>
