@@ -28,6 +28,18 @@
                     Updated {{ $updatedAt }}
                 @endif
             </p>
+
+            <div class="mt-3">
+                <h3>Activity</h3>
+                @foreach ($todo->activities as $activity)
+                    <div>
+                        <span class="font-bold">{{ $activity->user->name }}</span> {{ $activity->name }} todo
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        {{ App\Utilities\FormatUtilities::formatLongDate($activity['created_at']) }}
+                    </div>
+                @endforeach
+            </div>
         </div>
 
         <div class="flex gap-2 flex-wrap">
