@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 
@@ -35,6 +36,7 @@ class TodoController extends Controller
             "completed" => false,
             "user_id" => request()->user()->id,
         ]);
+        Activity::factory()->name("create")->user(request()->user())->todo($todo)->create();
         $todoId = $todo['id'];
 
         return redirect("/dashboard/todos/$todoId?page=$page");
@@ -65,7 +67,9 @@ class TodoController extends Controller
         $completed = array_key_exists("completed", $values) && $values['completed'] == "on"
             ? true
             : false;
+        $completedStr = $completed ? 'true' : 'false';
         $todo->update(["completed" => $completed]);
+        Activity::factory()->name("completed:$completedStr")->user(request()->user())->todo($todo)->create();
 
         return redirect("/dashboard/todos/$todo->id?page=$page");
     }

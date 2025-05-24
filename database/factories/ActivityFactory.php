@@ -24,4 +24,25 @@ class ActivityFactory extends Factory
             'todo_id' => Todo::factory(),
         ];
     }
+
+    public function name(string $name): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'name' => $name
+        ]);
+    }
+
+    public function user(User $user): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'user_id' => $user
+        ]);
+    }
+
+    public function todo(Todo $todo): static
+    {
+        return $this->state(fn(array $attributes) => [
+            'todo_id' => $todo
+        ]);
+    }
 }
