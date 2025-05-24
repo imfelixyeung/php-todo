@@ -21,21 +21,33 @@ class DatabaseSeeder extends Seeder
             'password' => 'example:password:123'
         ]);
 
-        Todo::create([
-            "name" => "Learn Laravel",
-            "completed" => true,
-            'user_id' => $user->id,
-        ]);
-        Todo::create([
-            "name" => "Learn PHP",
-            "completed" => true,
-            'user_id' => $user->id,
-        ]);
-        Todo::create([
-            "name" => "Learn MySQL",
-            "completed" => false,
-            'user_id' => $user->id,
-        ]);
+        Activity::factory()
+            ->user($user)
+            ->todo(
+                Todo::create([
+                    "name" => "Learn Laravel",
+                    "completed" => true,
+                    'user_id' => $user->id,
+                ])
+            )->create();
+        Activity::factory()
+            ->user($user)
+            ->todo(
+                Todo::create([
+                    "name" => "Learn PHP",
+                    "completed" => true,
+                    'user_id' => $user->id,
+                ])
+            )->create();
+        Activity::factory()
+            ->user($user)
+            ->todo(
+                Todo::create([
+                    "name" => "Learn MySQL",
+                    "completed" => false,
+                    'user_id' => $user->id,
+                ])
+            )->create();
 
         Activity::factory(50)->create();
     }
