@@ -49,6 +49,8 @@ class DatabaseSeeder extends Seeder
                 ])
             )->create();
 
-        Activity::factory(50)->create();
+        User::factory(42)->create()->each(function (User $user) {
+            Todo::factory()->has(Activity::factory()->user($user))->create(["user_id" => $user->id]);
+        });
     }
 }
