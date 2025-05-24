@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP Todo</title>
 
-    <x-tailwindcss />
+    @vite('resources/css/app.css')
 </head>
 
 <body>
