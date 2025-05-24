@@ -16,7 +16,7 @@ class TodoController extends Controller
 
     public function index()
     {
-        $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate(static::$pageSize);
+        $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->with(['user'])->paginate(static::$pageSize);
 
         return view('dashboard', [
             "todos" => $todos,
@@ -44,7 +44,7 @@ class TodoController extends Controller
 
     public function show(int $id)
     {
-        $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->paginate(static::$pageSize);
+        $todos = Todo::orderBy('completed', 'asc')->orderBy('created_at', 'desc')->with(['user'])->paginate(static::$pageSize);
         // prefer find() over findOrFail() in favor for non global custom 404
         $todo = Todo::find($id);
 

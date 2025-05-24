@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Todo;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
