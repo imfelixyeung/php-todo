@@ -18,7 +18,7 @@ $selectedTodoId = $selectedTodo ? $selectedTodo['id'] : null;
                     <th class="w-8"></th>
                     <th class="text-left">Name</th>
                     <th class="text-left">Status</th>
-                    <th class="text-left">Author</th>
+                    <th class="text-left">Owner</th>
                     <th class="text-left">Created</th>
                     <th class="text-left">Updated</th>
                 </tr>
